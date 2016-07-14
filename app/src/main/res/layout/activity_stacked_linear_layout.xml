@@ -8,8 +8,13 @@
         android:id="@+id/xUpLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="bottom">
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />-->
 
     </LinearLayout>
 
@@ -17,7 +22,6 @@
         android:id="@+id/xDownLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
     </LinearLayout>

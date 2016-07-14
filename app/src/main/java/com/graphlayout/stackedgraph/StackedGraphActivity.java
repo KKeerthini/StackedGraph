@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.RelativeLayout;
 
 import com.graphlayout.stackedgraph.graphfactory.StackGraphGenerator;
+import com.graphlayout.stackedgraph.model.StackGraphModel;
 
 import java.util.ArrayList;
 

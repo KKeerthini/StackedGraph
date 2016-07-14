@@ -2,31 +2,29 @@ package com.graphlayout.stackedgraph.graphfactory;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.graphlayout.stackedgraph.R;
-import com.graphlayout.stackedgraph.StackGraphModel;
+import com.graphlayout.stackedgraph.model.StackGraphModel;
 
 import java.util.ArrayList;
 
 /**
- * Created by CIPL0310 on 6/27/2016.
+ * Created by KEERTHINI on 6/27/2016.
  */
 
 public class StackGraphGenerator extends View {
     Context context;
     double highest = 1;
     double highestDown = 1;
-    LinearLayout linearUpLayout,linearDownLayout;
+    LinearLayout linearUpLayout, linearDownLayout;
     ArrayList<Integer> xUpSeries;
     ArrayList<Integer> xDownSeries;
+    StackGraphModel stackModel;
 
     public StackGraphGenerator(Context context) {
         super(context);
@@ -37,11 +35,18 @@ public class StackGraphGenerator extends View {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dynamicGraph = layoutInflater.inflate(R.layout.activity_stacked_linear_layout, null);
+
         linearUpLayout = (LinearLayout) dynamicGraph.findViewById(R.id.xUpLinearLayout);
-        linearDownLayout=(LinearLayout)dynamicGraph.findViewById(R.id.xDownLinearLayout);
+        linearUpLayout.setBackgroundColor(stackModel.getxUpBackgrdColor());
+        linearDownLayout = (LinearLayout) dynamicGraph.findViewById(R.id.xDownLinearLayout);
+        linearDownLayout.setBackgroundColor(stackModel.getxDownBackgrdColor());
+
         this.xUpSeries = xUpSeries;
         this.xDownSeries = xDownSeries;
+        this.stackModel=stackModel;
+
         generateGraph();
+
         return dynamicGraph;
     }
 
@@ -69,29 +74,29 @@ public class StackGraphGenerator extends View {
             TextView xupTextView = new TextView(context);
             xupTextView.setLayoutParams(llp);
             xupTextView.setText(String.valueOf(xUpSeries.get(i)));
-            xupTextView.setTextColor(Color.BLUE);
+            xupTextView.setTextColor(stackModel.getxUpBarcolor());
             xupTextView.setGravity(Gravity.BOTTOM);
             double currentHeight = (xUpSeries.get(i) / highest) * 200;
             xupTextView.setHeight((int) currentHeight);
-            xupTextView.setWidth(30);
-            xupTextView.setBackgroundColor(0xff66ff66);
+            xupTextView.setWidth(stackModel.getBarWidth());
+            xupTextView.setBackgroundColor(stackModel.getxUpBarcolor());
             linearUpLayout.addView(xupTextView);
         }
 
-            int xDownSize = xDownSeries.size();
+        int xDownSize = xDownSeries.size();
 
-            for (int j = 0; j < xDownSize; j++) {
-                TextView xdownTextView = new TextView(context);
-                xdownTextView.setLayoutParams(llp);
-                xdownTextView.setText(String.valueOf(xDownSeries.get(j)));
-                xdownTextView.setTextColor(Color.BLUE);
-                xdownTextView.setGravity(Gravity.TOP);
-                double downHeight = (xDownSeries.get(j) / highest) * 200;
-                xdownTextView.setHeight((int) downHeight);
-                xdownTextView.setWidth(30);
-                xdownTextView.setBackgroundColor(0xff66ff66);
-                linearDownLayout.addView(xdownTextView);
-            }
+        for (int j = 0; j < xDownSize; j++) {
+            TextView xdownTextView = new TextView(context);
+            xdownTextView.setLayoutParams(llp);
+            xdownTextView.setText(String.valueOf(xDownSeries.get(j)));
+            xdownTextView.setTextColor(stackModel.getxDownBarColor());
+            xdownTextView.setGravity(Gravity.TOP);
+            double downHeight = (xDownSeries.get(j) / highest) * 200;
+            xdownTextView.setHeight((int) downHeight);
+            xdownTextView.setWidth(stackModel.getBarWidth());
+            xdownTextView.setBackgroundColor(stackModel.getxDownBarColor());
+            linearDownLayout.addView(xdownTextView);
+        }
 
     }
 }
