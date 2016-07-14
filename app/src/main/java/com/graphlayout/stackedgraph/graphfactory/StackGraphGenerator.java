@@ -1,7 +1,6 @@
 package com.graphlayout.stackedgraph.graphfactory;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +28,7 @@ public class StackGraphGenerator extends View {
     public StackGraphGenerator(Context context) {
         super(context);
         this.context = context;
+
     }
 
     public View generateStackedGraph(StackGraphModel stackModel, ArrayList<Integer> xUpSeries, ArrayList<Integer> xDownSeries) {
@@ -71,12 +71,14 @@ public class StackGraphGenerator extends View {
         int xUpSize = xUpSeries.size();
 
         for (int i = 0; i < xUpSize; i++) {
-            TextView xupTextView = new TextView(context);
+            final TextView xupTextView = new TextView(context);
             xupTextView.setLayoutParams(llp);
+            xupTextView.setTag(i+"x");
+            xupTextView.setId(i);
             xupTextView.setText(String.valueOf(xUpSeries.get(i)));
             xupTextView.setTextColor(stackModel.getxUpBarcolor());
             xupTextView.setGravity(Gravity.BOTTOM);
-            double currentHeight = (xUpSeries.get(i) / highest) * 200;
+            double currentHeight = (xUpSeries.get(i) / highest) * 400;
             xupTextView.setHeight((int) currentHeight);
             xupTextView.setWidth(stackModel.getBarWidth());
             xupTextView.setBackgroundColor(stackModel.getxUpBarcolor());
@@ -88,10 +90,12 @@ public class StackGraphGenerator extends View {
         for (int j = 0; j < xDownSize; j++) {
             TextView xdownTextView = new TextView(context);
             xdownTextView.setLayoutParams(llp);
+            xdownTextView.setTag(j+"y");
+            xdownTextView.setId(j+1000);
             xdownTextView.setText(String.valueOf(xDownSeries.get(j)));
             xdownTextView.setTextColor(stackModel.getxDownBarColor());
             xdownTextView.setGravity(Gravity.TOP);
-            double downHeight = (xDownSeries.get(j) / highest) * 200;
+            double downHeight = (xDownSeries.get(j) / highest) * 400;
             xdownTextView.setHeight((int) downHeight);
             xdownTextView.setWidth(stackModel.getBarWidth());
             xdownTextView.setBackgroundColor(stackModel.getxDownBarColor());
